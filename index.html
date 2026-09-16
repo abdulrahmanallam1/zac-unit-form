@@ -13,7 +13,7 @@
 body {
   margin: 0;
   background: #eeeeee;
-  color: #111111;
+  color: #111;
   font-family: Arial, sans-serif;
 }
 
@@ -21,12 +21,12 @@ body {
   max-width: 620px;
   min-height: 100vh;
   margin: auto;
-  background: white;
+  background: #fff;
 }
 
 .header {
   background: #050505;
-  color: white;
+  color: #fff;
   padding: 16px 18px;
   display: flex;
   justify-content: space-between;
@@ -40,7 +40,7 @@ body {
 
 .subtitle {
   margin-top: 4px;
-  color: #bbbbbb;
+  color: #aaa;
   font-size: 11px;
 }
 
@@ -48,13 +48,13 @@ body {
   padding: 7px 10px;
   border: 1px solid #777;
   background: #111;
-  color: white;
+  color: #fff;
   cursor: pointer;
 }
 
 .language button.active {
-  background: white;
-  color: black;
+  background: #fff;
+  color: #000;
 }
 
 .content {
@@ -91,12 +91,12 @@ textarea {
   padding: 12px;
   border: 1px solid #222;
   border-radius: 0;
-  background: white;
+  background: #fff;
   font-size: 14px;
 }
 
 textarea {
-  min-height: 85px;
+  min-height: 80px;
   resize: vertical;
 }
 
@@ -107,12 +107,13 @@ textarea {
 }
 
 .option {
-  padding: 11px 5px;
+  padding: 12px 5px;
   border: 1px solid #222;
   text-align: center;
   cursor: pointer;
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 13px;
+  font-weight: normal;
+  margin: 0;
 }
 
 .option input {
@@ -122,6 +123,15 @@ textarea {
 .option:has(input:checked) {
   background: #000;
   color: #fff;
+}
+
+.other-box {
+  display: none;
+  margin-top: 8px;
+}
+
+.other-box.show {
+  display: block;
 }
 
 .buttons {
@@ -141,8 +151,8 @@ button.send {
 }
 
 button.email {
-  background: white;
-  color: black;
+  background: #fff;
+  color: #000;
 }
 
 #message {
@@ -202,141 +212,142 @@ button.email {
 
   <section class="content">
 
-    <div class="eyebrow"
-      data-ar="بيانات الوحدة"
-      data-en="UNIT DETAILS">
+    <div class="eyebrow" id="eyebrow">
       بيانات الوحدة
     </div>
 
-    <h1
-      data-ar="فورم معلومات الوحدة"
-      data-en="Unit Information Form">
+    <h1 id="formTitle">
       فورم معلومات الوحدة
     </h1>
 
-    <p class="intro"
-      data-ar="من فضلك املأ البيانات التالية وسنتواصل معك في أقرب وقت ممكن."
-      data-en="Please fill in the details below and we will contact you as soon as possible.">
+    <p class="intro" id="formIntro">
       من فضلك املأ البيانات التالية وسنتواصل معك في أقرب وقت ممكن.
     </p>
 
     <form id="unitForm">
 
-      <label data-ar="الاسم بالكامل" data-en="Full name">
-        الاسم بالكامل
-      </label>
-
+      <label id="nameLabel">الاسم بالكامل</label>
       <input
         type="text"
         name="name"
+        id="nameInput"
         required
         placeholder="اكتب الاسم بالكامل">
 
-      <label data-ar="رقم الهاتف" data-en="Phone number">
-        رقم الهاتف
-      </label>
-
+      <label id="phoneLabel">رقم الهاتف</label>
       <input
         type="tel"
         name="phone"
+        id="phoneInput"
         required
         placeholder="01xxxxxxxxx">
 
-      <label data-ar="نوع الوحدة" data-en="Unit type">
-        نوع الوحدة
-      </label>
+      <label id="typeLabel">نوع الوحدة</label>
 
       <div class="options">
 
         <label class="option">
           <input type="radio" name="unitType" value="Residential" required>
-          سكني<br>
-          <small>Residential</small>
+          <span class="arText">سكني</span>
+          <span class="enText" style="display:none;">Residential</span>
         </label>
 
         <label class="option">
           <input type="radio" name="unitType" value="Commercial">
-          تجاري<br>
-          <small>Commercial</small>
+          <span class="arText">تجاري</span>
+          <span class="enText" style="display:none;">Commercial</span>
         </label>
 
         <label class="option">
           <input type="radio" name="unitType" value="Administrative">
-          إداري<br>
-          <small>Administrative</small>
+          <span class="arText">إداري</span>
+          <span class="enText" style="display:none;">Administrative</span>
         </label>
 
       </div>
 
-      <label data-ar="مساحة الوحدة" data-en="Unit area">
-        مساحة الوحدة
-      </label>
+      <label id="areaLabel">مساحة الوحدة</label>
+
+      <select name="area" id="areaSelect" required onchange="toggleAreaOther()">
+        <option value="">اختر المساحة</option>
+        <option value="50-100">من 50 إلى 100 متر</option>
+        <option value="100-200">من 100 إلى 200 متر</option>
+        <option value="200-300">من 200 إلى 300 متر</option>
+        <option value="Other">أخرى</option>
+      </select>
 
       <input
         type="text"
-        name="area"
-        placeholder="مثال: 150 متر مربع / e.g. 150 m²">
+        name="areaOther"
+        id="areaOther"
+        class="other-box"
+        placeholder="اكتب المساحة">
 
-      <label data-ar="وصف الوحدة" data-en="Unit description">
-        وصف الوحدة
-      </label>
+      <label id="descriptionLabel">وصف الوحدة</label>
 
-      <textarea
+      <select
         name="description"
-        placeholder="ستوديو، شقة، فيلا... / Studio, apartment, villa..."></textarea>
+        id="descriptionSelect"
+        required
+        onchange="toggleDescriptionOther()">
 
-      <label data-ar="الموقع" data-en="Location">
-        الموقع
-      </label>
+        <option value="">اختر وصف الوحدة</option>
+        <option value="Studio">ستوديو</option>
+        <option value="Apartment">شقة</option>
+        <option value="Villa">فيلا</option>
+        <option value="Duplex">دوبلكس</option>
+        <option value="Office">مكتب</option>
+        <option value="Shop">محل</option>
+        <option value="Other">أخرى</option>
+      </select>
+
+      <input
+        type="text"
+        name="descriptionOther"
+        id="descriptionOther"
+        class="other-box"
+        placeholder="اكتب وصف الوحدة">
+
+      <label id="locationLabel">الموقع</label>
 
       <input
         type="text"
         name="location"
+        id="locationInput"
         required
-        placeholder="العنوان / Address">
+        placeholder="العنوان">
 
-      <label data-ar="حالة الوحدة" data-en="Unit condition">
-        حالة الوحدة
-      </label>
+      <label id="conditionLabel">حالة الوحدة</label>
 
-      <select name="condition">
-
-        <option value="Finished">
-          تشطيب كامل / Finished
-        </option>
-
-        <option value="Semi-finished">
-          نصف تشطيب / Semi-finished
-        </option>
-
-        <option value="Red brick">
-          على الطوب الأحمر / Red brick
-        </option>
-
+      <select name="condition" id="conditionSelect" required>
+        <option value="Finished">تشطيب كامل</option>
+        <option value="Semi-finished">نصف تشطيب</option>
+        <option value="Red brick">على الطوب الأحمر</option>
       </select>
 
-      <label data-ar="أنسب وقت للتواصل" data-en="Preferred contact time">
-        أنسب وقت للتواصل
-      </label>
+      <label id="timeLabel">أنسب وقت للتواصل</label>
 
       <input
         type="text"
         name="contactTime"
-        placeholder="مثال: 6 - 8 مساءً / e.g. 6 - 8 PM">
+        id="timeInput"
+        placeholder="مثال: من 6 إلى 8 مساءً">
 
       <div class="buttons">
 
         <button
           type="button"
           class="send"
-          onclick="sendWhatsApp()">
+          onclick="sendWhatsApp()"
+          id="whatsappButton">
           إرسال عبر واتساب
         </button>
 
         <button
           type="button"
           class="send email"
-          onclick="sendEmail()">
+          onclick="sendEmail()"
+          id="emailButton">
           إرسال عبر البريد
         </button>
 
@@ -346,9 +357,7 @@ button.email {
 
     </form>
 
-    <div class="note"
-      data-ar="بالضغط على أحد الأزرار سيتم فتح واتساب أو تطبيق البريد بالبيانات المدخلة."
-      data-en="Click a button to open WhatsApp or your email app with the entered details.">
+    <div class="note" id="note">
       بالضغط على أحد الأزرار سيتم فتح واتساب أو تطبيق البريد بالبيانات المدخلة.
     </div>
 
@@ -359,15 +368,144 @@ button.email {
 
 let currentLanguage = "ar";
 
+const translations = {
+  ar: {
+    eyebrow: "بيانات الوحدة",
+    title: "فورم معلومات الوحدة",
+    intro: "من فضلك املأ البيانات التالية وسنتواصل معك في أقرب وقت ممكن.",
+    name: "الاسم بالكامل",
+    namePlaceholder: "اكتب الاسم بالكامل",
+    phone: "رقم الهاتف",
+    phonePlaceholder: "01xxxxxxxxx",
+    type: "نوع الوحدة",
+    area: "مساحة الوحدة",
+    areaPlaceholder: "اختر المساحة",
+    area50: "من 50 إلى 100 متر",
+    area100: "من 100 إلى 200 متر",
+    area200: "من 200 إلى 300 متر",
+    other: "أخرى",
+    writeArea: "اكتب المساحة",
+    description: "وصف الوحدة",
+    descriptionPlaceholder: "اختر وصف الوحدة",
+    studio: "ستوديو",
+    apartment: "شقة",
+    villa: "فيلا",
+    duplex: "دوبلكس",
+    office: "مكتب",
+    shop: "محل",
+    writeDescription: "اكتب وصف الوحدة",
+    location: "الموقع",
+    locationPlaceholder: "العنوان",
+    condition: "حالة الوحدة",
+    finished: "تشطيب كامل",
+    semi: "نصف تشطيب",
+    redBrick: "على الطوب الأحمر",
+    time: "أنسب وقت للتواصل",
+    timePlaceholder: "مثال: من 6 إلى 8 مساءً",
+    whatsapp: "إرسال عبر واتساب",
+    email: "إرسال عبر البريد",
+    note: "بالضغط على أحد الأزرار سيتم فتح واتساب أو تطبيق البريد بالبيانات المدخلة."
+  },
+
+  en: {
+    eyebrow: "UNIT DETAILS",
+    title: "Unit Information Form",
+    intro: "Please fill in the details below and we will contact you as soon as possible.",
+    name: "Full name",
+    namePlaceholder: "Enter your full name",
+    phone: "Phone number",
+    phonePlaceholder: "01xxxxxxxxx",
+    type: "Unit type",
+    area: "Unit area",
+    areaPlaceholder: "Select unit area",
+    area50: "50 to 100 m²",
+    area100: "100 to 200 m²",
+    area200: "200 to 300 m²",
+    other: "Other",
+    writeArea: "Enter the unit area",
+    description: "Unit description",
+    descriptionPlaceholder: "Select unit description",
+    studio: "Studio",
+    apartment: "Apartment",
+    villa: "Villa",
+    duplex: "Duplex",
+    office: "Office",
+    shop: "Shop",
+    writeDescription: "Enter unit description",
+    location: "Location",
+    locationPlaceholder: "Enter the address",
+    condition: "Unit condition",
+    finished: "Finished",
+    semi: "Semi-finished",
+    redBrick: "Red brick",
+    time: "Preferred contact time",
+    timePlaceholder: "Example: 6 to 8 PM",
+    whatsapp: "Send via WhatsApp",
+    email: "Send via Email",
+    note: "Click a button to open WhatsApp or your email app with the entered details."
+  }
+};
+
 function changeLanguage(language) {
   currentLanguage = language;
+
+  const t = translations[language];
 
   document.documentElement.lang = language;
   document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
 
-  document.querySelectorAll("[data-ar]").forEach(function(element) {
-    element.textContent = element.getAttribute("data-" + language);
+  document.getElementById("eyebrow").textContent = t.eyebrow;
+  document.getElementById("formTitle").textContent = t.title;
+  document.getElementById("formIntro").textContent = t.intro;
+  document.getElementById("nameLabel").textContent = t.name;
+  document.getElementById("nameInput").placeholder = t.namePlaceholder;
+  document.getElementById("phoneLabel").textContent = t.phone;
+  document.getElementById("phoneInput").placeholder = t.phonePlaceholder;
+  document.getElementById("typeLabel").textContent = t.type;
+  document.getElementById("areaLabel").textContent = t.area;
+  document.getElementById("descriptionLabel").textContent = t.description;
+  document.getElementById("locationLabel").textContent = t.location;
+  document.getElementById("locationInput").placeholder = t.locationPlaceholder;
+  document.getElementById("conditionLabel").textContent = t.condition;
+  document.getElementById("timeLabel").textContent = t.time;
+  document.getElementById("timeInput").placeholder = t.timePlaceholder;
+  document.getElementById("whatsappButton").textContent = t.whatsapp;
+  document.getElementById("emailButton").textContent = t.email;
+  document.getElementById("note").textContent = t.note;
+
+  document.querySelectorAll(".arText").forEach(function(element) {
+    element.style.display = language === "ar" ? "inline" : "none";
   });
+
+  document.querySelectorAll(".enText").forEach(function(element) {
+    element.style.display = language === "en" ? "inline" : "none";
+  });
+
+  const area = document.getElementById("areaSelect");
+  area.options[0].text = t.areaPlaceholder;
+  area.options[1].text = t.area50;
+  area.options[2].text = t.area100;
+  area.options[3].text = t.area200;
+  area.options[4].text = t.other;
+
+  document.getElementById("areaOther").placeholder = t.writeArea;
+
+  const description = document.getElementById("descriptionSelect");
+  description.options[0].text = t.descriptionPlaceholder;
+  description.options[1].text = t.studio;
+  description.options[2].text = t.apartment;
+  description.options[3].text = t.villa;
+  description.options[4].text = t.duplex;
+  description.options[5].text = t.office;
+  description.options[6].text = t.shop;
+  description.options[7].text = t.other;
+
+  document.getElementById("descriptionOther").placeholder = t.writeDescription;
+
+  const condition = document.getElementById("conditionSelect");
+  condition.options[0].text = t.finished;
+  condition.options[1].text = t.semi;
+  condition.options[2].text = t.redBrick;
 
   document.getElementById("arabicButton")
     .classList.toggle("active", language === "ar");
@@ -376,76 +514,78 @@ function changeLanguage(language) {
     .classList.toggle("active", language === "en");
 }
 
+function toggleAreaOther() {
+  const select = document.getElementById("areaSelect");
+  const input = document.getElementById("areaOther");
+
+  input.classList.toggle("show", select.value === "Other");
+  input.required = select.value === "Other";
+}
+
+function toggleDescriptionOther() {
+  const select = document.getElementById("descriptionSelect");
+  const input = document.getElementById("descriptionOther");
+
+  input.classList.toggle("show", select.value === "Other");
+  input.required = select.value === "Other";
+}
+
 function getFormData() {
   const form = document.getElementById("unitForm");
   const data = new FormData(form);
 
-  const labels = currentLanguage === "ar"
-    ? ["الاسم", "رقم الهاتف", "نوع الوحدة", "المساحة", "الوصف", "الموقع", "الحالة", "وقت التواصل"]
-    : ["Name", "Phone", "Unit type", "Area", "Description", "Location", "Condition", "Contact time"];
+  const area = data.get("area") === "Other"
+    ? data.get("areaOther")
+    : data.get("area");
 
-  const values = [
-    data.get("name"),
-    data.get("phone"),
-    data.get("unitType"),
-    data.get("area"),
-    data.get("description"),
-    data.get("location"),
-    data.get("condition"),
-    data.get("contactTime")
-  ];
+  const description = data.get("description") === "Other"
+    ? data.get("descriptionOther")
+    : data.get("description");
 
-  let result = "";
-
-  for (let i = 0; i < labels.length; i++) {
-    result += labels[i] + ": " + (values[i] || "-") + "
-";
-  }
-
-  return result;
+  return [
+    "Name / الاسم: " + data.get("name"),
+    "Phone / الهاتف: " + data.get("phone"),
+    "Unit type / نوع الوحدة: " + data.get("unitType"),
+    "Unit area / مساحة الوحدة: " + area,
+    "Description / وصف الوحدة: " + description,
+    "Location / الموقع: " + data.get("location"),
+    "Condition / الحالة: " + data.get("condition"),
+    "Contact time / وقت التواصل: " + (data.get("contactTime") || "-")
+  ].join("
+");
 }
 
 function validateForm() {
-  const form = document.getElementById("unitForm");
-
-  if (!form.reportValidity()) {
-    return false;
-  }
-
-  return true;
+  return document.getElementById("unitForm").reportValidity();
 }
 
 function sendWhatsApp() {
-  if (!validateForm()) {
-    return;
-  }
+  if (!validateForm()) return;
 
   const message =
-    "ZAC Architecture Studio - Unit Information Form
+    "ZAC Architecture Studio
 
 " +
     getFormData();
 
-  const whatsappUrl =
+  const url =
     "https://wa.me/201555364449?text=" +
     encodeURIComponent(message);
 
-  window.location.href = whatsappUrl;
+  window.location.href = url;
 }
 
 function sendEmail() {
-  if (!validateForm()) {
-    return;
-  }
+  if (!validateForm()) return;
 
   const subject = "ZAC Unit Information Form";
 
-  const emailUrl =
+  const url =
     "mailto:zacarchitecturestudio@gmail.com" +
     "?subject=" + encodeURIComponent(subject) +
     "&body=" + encodeURIComponent(getFormData());
 
-  window.location.href = emailUrl;
+  window.location.href = url;
 }
 
 </script>
