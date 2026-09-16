@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZAC Unit Information Form</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #eeeeee;
+  color: #111111;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 620px;
+  min-height: 100vh;
+  margin: auto;
+  background: white;
+}
+
+.header {
+  background: #050505;
+  color: white;
+  padding: 16px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.subtitle {
+  margin-top: 4px;
+  color: #bbbbbb;
+  font-size: 11px;
+}
+
+.language button {
+  padding: 7px 10px;
+  border: 1px solid #777;
+  background: #111;
+  color: white;
+  cursor: pointer;
+}
+
+.language button.active {
+  background: white;
+  color: black;
+}
+
+.content {
+  padding: 25px 20px;
+}
+
+.eyebrow {
+  color: #777;
+  font-size: 12px;
+}
+
+h1 {
+  margin: 8px 0;
+  font-size: 27px;
+}
+
+.intro {
+  color: #555;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+label {
+  display: block;
+  margin: 17px 0 7px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #222;
+  border-radius: 0;
+  background: white;
+  font-size: 14px;
+}
+
+textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+}
+
+.option {
+  padding: 11px 5px;
+  border: 1px solid #222;
+  text-align: center;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.option input {
+  display: none;
+}
+
+.option:has(input:checked) {
+  background: #000;
+  color: #fff;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin-top: 25px;
+}
+
+button.send {
+  padding: 14px 8px;
+  border: 1px solid #111;
+  background: #000;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button.email {
+  background: white;
+  color: black;
+}
+
+#message {
+  min-height: 22px;
+  margin-top: 14px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.note {
+  margin-top: 17px;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 20px 15px;
+  }
+
+  h1 {
+    font-size: 23px;
+  }
+
+  .options {
+    grid-template-columns: 1fr;
+  }
+
+  .buttons {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <header class="header">
+    <div>
+      <div class="logo">ZAC Architecture Studio</div>
+      <div class="subtitle">Unit Information Form</div>
+    </div>
+
+    <div class="language">
+      <button id="arabicButton" class="active" onclick="changeLanguage('ar')">
+        عربي
+      </button>
+
+      <button id="englishButton" onclick="changeLanguage('en')">
+        EN
+      </button>
+    </div>
+  </header>
+
+  <section class="content">
+
+    <div class="eyebrow"
+      data-ar="بيانات الوحدة"
+      data-en="UNIT DETAILS">
+      بيانات الوحدة
+    </div>
+
+    <h1
+      data-ar="فورم معلومات الوحدة"
+      data-en="Unit Information Form">
+      فورم معلومات الوحدة
+    </h1>
+
+    <p class="intro"
+      data-ar="من فضلك املأ البيانات التالية وسنتواصل معك في أقرب وقت ممكن."
+      data-en="Please fill in the details below and we will contact you as soon as possible.">
+      من فضلك املأ البيانات التالية وسنتواصل معك في أقرب وقت ممكن.
+    </p>
+
+    <form id="unitForm">
+
+      <label data-ar="الاسم بالكامل" data-en="Full name">
+        الاسم بالكامل
+      </label>
+
+      <input
+        type="text"
+        name="name"
+        required
+        placeholder="اكتب الاسم بالكامل">
+
+      <label data-ar="رقم الهاتف" data-en="Phone number">
+        رقم الهاتف
+      </label>
+
+      <input
+        type="tel"
+        name="phone"
+        required
+        placeholder="01xxxxxxxxx">
+
+      <label data-ar="نوع الوحدة" data-en="Unit type">
+        نوع الوحدة
+      </label>
+
+      <div class="options">
+
+        <label class="option">
+          <input type="radio" name="unitType" value="Residential" required>
+          سكني<br>
+          <small>Residential</small>
+        </label>
+
+        <label class="option">
+          <input type="radio" name="unitType" value="Commercial">
+          تجاري<br>
+          <small>Commercial</small>
+        </label>
+
+        <label class="option">
+          <input type="radio" name="unitType" value="Administrative">
+          إداري<br>
+          <small>Administrative</small>
+        </label>
+
+      </div>
+
+      <label data-ar="مساحة الوحدة" data-en="Unit area">
+        مساحة الوحدة
+      </label>
+
+      <input
+        type="text"
+        name="area"
+        placeholder="مثال: 150 متر مربع / e.g. 150 m²">
+
+      <label data-ar="وصف الوحدة" data-en="Unit description">
+        وصف الوحدة
+      </label>
+
+      <textarea
+        name="description"
+        placeholder="ستوديو، شقة، فيلا... / Studio, apartment, villa..."></textarea>
+
+      <label data-ar="الموقع" data-en="Location">
+        الموقع
+      </label>
+
+      <input
+        type="text"
+        name="location"
+        required
+        placeholder="العنوان / Address">
+
+      <label data-ar="حالة الوحدة" data-en="Unit condition">
+        حالة الوحدة
+      </label>
+
+      <select name="condition">
+
+        <option value="Finished">
+          تشطيب كامل / Finished
+        </option>
+
+        <option value="Semi-finished">
+          نصف تشطيب / Semi-finished
+        </option>
+
+        <option value="Red brick">
+          على الطوب الأحمر / Red brick
+        </option>
+
+      </select>
+
+      <label data-ar="أنسب وقت للتواصل" data-en="Preferred contact time">
+        أنسب وقت للتواصل
+      </label>
+
+      <input
+        type="text"
+        name="contactTime"
+        placeholder="مثال: 6 - 8 مساءً / e.g. 6 - 8 PM">
+
+      <div class="buttons">
+
+        <button
+          type="button"
+          class="send"
+          onclick="sendWhatsApp()">
+          إرسال عبر واتساب
+        </button>
+
+        <button
+          type="button"
+          class="send email"
+          onclick="sendEmail()">
+          إرسال عبر البريد
+        </button>
+
+      </div>
+
+      <div id="message"></div>
+
+    </form>
+
+    <div class="note"
+      data-ar="بالضغط على أحد الأزرار سيتم فتح واتساب أو تطبيق البريد بالبيانات المدخلة."
+      data-en="Click a button to open WhatsApp or your email app with the entered details.">
+      بالضغط على أحد الأزرار سيتم فتح واتساب أو تطبيق البريد بالبيانات المدخلة.
+    </div>
+
+  </section>
+</div>
+
+<script>
+
+let currentLanguage = "ar";
+
+function changeLanguage(language) {
+  currentLanguage = language;
+
+  document.documentElement.lang = language;
+  document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+
+  document.querySelectorAll("[data-ar]").forEach(function(element) {
+    element.textContent = element.getAttribute("data-" + language);
+  });
+
+  document.getElementById("arabicButton")
+    .classList.toggle("active", language === "ar");
+
+  document.getElementById("englishButton")
+    .classList.toggle("active", language === "en");
+}
+
+function getFormData() {
+  const form = document.getElementById("unitForm");
+  const data = new FormData(form);
+
+  const labels = currentLanguage === "ar"
+    ? ["الاسم", "رقم الهاتف", "نوع الوحدة", "المساحة", "الوصف", "الموقع", "الحالة", "وقت التواصل"]
+    : ["Name", "Phone", "Unit type", "Area", "Description", "Location", "Condition", "Contact time"];
+
+  const values = [
+    data.get("name"),
+    data.get("phone"),
+    data.get("unitType"),
+    data.get("area"),
+    data.get("description"),
+    data.get("location"),
+    data.get("condition"),
+    data.get("contactTime")
+  ];
+
+  let result = "";
+
+  for (let i = 0; i < labels.length; i++) {
+    result += labels[i] + ": " + (values[i] || "-") + "
+";
+  }
+
+  return result;
+}
+
+function validateForm() {
+  const form = document.getElementById("unitForm");
+
+  if (!form.reportValidity()) {
+    return false;
+  }
+
+  return true;
+}
+
+function sendWhatsApp() {
+  if (!validateForm()) {
+    return;
+  }
+
+  const message =
+    "ZAC Architecture Studio - Unit Information Form
+
+" +
+    getFormData();
+
+  const whatsappUrl =
+    "https://wa.me/201555364449?text=" +
+    encodeURIComponent(message);
+
+  window.location.href = whatsappUrl;
+}
+
+function sendEmail() {
+  if (!validateForm()) {
+    return;
+  }
+
+  const subject = "ZAC Unit Information Form";
+
+  const emailUrl =
+    "mailto:zacarchitecturestudio@gmail.com" +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(getFormData());
+
+  window.location.href = emailUrl;
+}
+
+</script>
+
+</body>
+</html>
